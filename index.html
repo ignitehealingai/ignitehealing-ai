@@ -173,6 +173,8 @@
   .footer-links { display: flex; gap: 1.5rem; }
   .footer-links a { font-size: 0.8rem; color: var(--gold-light); text-decoration: none; opacity: 0.8; transition: opacity 0.2s; }
   .footer-links a:hover { opacity: 1; }
+  .footer-legal { background: #000; padding: 0.75rem 10vw; text-align: center; }
+  .footer-legal p { font-size: 0.72rem; color: rgba(255,255,255,0.45); letter-spacing: 0.03em; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
@@ -397,7 +399,7 @@
           <li>Patterns that keep coming back</li>
           <li>Moments of pressure or overwhelm</li>
         </ul>
-        <a href="mailto:connect@ignitehealing.ai" class="session-btn" aria-label="Email to book a 1 to 1 session">Book a Session</a>
+        <a href="mailto:connect@ignitehealing.ai" class="session-btn" aria-label="Email to book a 1 to 1 session">Get in Touch</a>
       </div>
       <div class="session-card hot reveal" role="listitem">
         <div class="session-title">AI + Creation Sessions</div>
@@ -408,7 +410,7 @@
           <li>Create a repeatable thinking process</li>
           <li>Grow your creative work without burning out</li>
         </ul>
-        <a href="mailto:connect@ignitehealing.ai" class="session-btn session-btn-hot" aria-label="Email to book an AI and creation session">Book a Session</a>
+        <a href="mailto:connect@ignitehealing.ai" class="session-btn session-btn-hot" aria-label="Email to book an AI and creation session">Get in Touch</a>
       </div>
     </div>
   </div>
@@ -471,8 +473,7 @@
 
 <footer role="contentinfo">
   <div class="footer-inner">
-    <p>Ignite Healing AI™ &nbsp;&copy; 2026</p>
-    <p>Ignite Healing AI is offered through Ignite Healing AI LLC</p>
+
     <div class="footer-links">
       <a href="https://cracksandseeds.substack.com/" target="_blank" rel="noopener" aria-label="Read Cracks and Seeds on Substack, opens in new tab">Cracks &amp; Seeds™</a>
       <a href="#work-with-me">Work With Me</a>
@@ -480,6 +481,9 @@
     </div>
   </div>
 </footer>
+<div class="footer-legal">
+  <p>Ignite Healing AI™ is offered through Ignite Healing AI LLC. &nbsp;&copy; 2026 All rights reserved.</p>
+</div>
 
 <script>
   const nav = document.getElementById('nav');
