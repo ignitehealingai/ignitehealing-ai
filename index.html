@@ -118,7 +118,7 @@
   .who-section h2 em { color: var(--gold-light); }
   .signs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.5rem; }
   .sign-card { border: 1px solid rgba(245,166,35,0.22); padding: 1.75rem; border-radius: 2px; transition: border-color 0.3s, background 0.3s; }
-  .sign-card:hover { border-color: var(--gold-light); background: rgba(245,166,35,0.06); }
+  .sign-card:hover { border-color: var(--coral-light); background: rgba(244,97,74,0.18); }
   .sign-card p { font-size: 0.95rem; line-height: 1.75; color: rgba(253,248,240,0.82); }
 
   .about-section { background: var(--cream); }
@@ -139,6 +139,10 @@
   .session-list { list-style: none; }
   .session-list li { font-size: 0.9rem; line-height: 1.65; color: var(--mid); padding: 0.3rem 0 0.3rem 1.25rem; position: relative; }
   .session-list li::before { content: '—'; position: absolute; left: 0; color: var(--coral-light); }
+  .session-btn { display: inline-block; margin-top: 1.5rem; background: var(--gold-light); color: #fff; font-weight: 500; font-size: 0.875rem; padding: 0.75rem 1.75rem; border-radius: 2px; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .session-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(244,97,74,0.35); }
+  .session-btn-hot { background: var(--hot-light); }
+  .session-btn-hot:hover { box-shadow: 0 8px 24px rgba(232,67,107,0.35); }
 
   .not-section { background: var(--cream); }
   .not-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
@@ -260,18 +264,18 @@
     <div class="rcsd-grid" role="list">
       <div class="rcsd-card reveal" role="listitem">
         <div class="rcsd-letter" aria-hidden="true">R</div>
-        <div class="rcsd-title">Regulation</div>
-        <p class="rcsd-body">Your ability to stay calm and grounded comes first. Every interaction is designed to support your nervous system, not push past it.</p>
+        <div class="rcsd-title">Regulation-Centered</div>
+        <p class="rcsd-body">Your nervous system comes first. Every interaction is designed to support your ability to stay calm and grounded — not push past it. Consent is built into the center of everything.</p>
       </div>
       <div class="rcsd-card s reveal" role="listitem">
-        <div class="rcsd-letter" aria-hidden="true">C</div>
-        <div class="rcsd-title">Consent</div>
-        <p class="rcsd-body">You decide what happens, when it happens, and how fast. Nothing moves without your permission. You are always in charge.</p>
+        <div class="rcsd-letter" aria-hidden="true">S</div>
+        <div class="rcsd-title">System</div>
+        <p class="rcsd-body">You are a system. Your patterns, your history, your body, your creativity — all connected. This framework treats you that way instead of isolating one part at a time.</p>
       </div>
       <div class="rcsd-card d reveal" role="listitem">
-        <div class="rcsd-letter" aria-hidden="true">SD</div>
-        <div class="rcsd-title">System Design</div>
-        <p class="rcsd-body">Good systems are built around real human needs. RCSD applies this thinking to AI — creating tools that work with you, not on you.</p>
+        <div class="rcsd-letter" aria-hidden="true">D</div>
+        <div class="rcsd-title">Design</div>
+        <p class="rcsd-body">Good design is built around real human needs. RCSD applies that principle to AI — creating tools and processes that work with you, not on you.</p>
       </div>
     </div>
   </div>
@@ -393,6 +397,7 @@
           <li>Patterns that keep coming back</li>
           <li>Moments of pressure or overwhelm</li>
         </ul>
+        <a href="mailto:connect@ignitehealing.ai" class="session-btn" aria-label="Email to book a 1 to 1 session">Get in Touch</a>
       </div>
       <div class="session-card hot reveal" role="listitem">
         <div class="session-title">AI + Creation Sessions</div>
@@ -403,6 +408,7 @@
           <li>Create a repeatable thinking process</li>
           <li>Grow your creative work without burning out</li>
         </ul>
+        <a href="mailto:connect@ignitehealing.ai" class="session-btn session-btn-hot" aria-label="Email to book an AI and creation session">Get in Touch</a>
       </div>
     </div>
   </div>
@@ -456,7 +462,7 @@
   <div class="inner">
     <h2 id="cta-heading" class="reveal">What is the thing<br><em>you've been holding?</em></h2>
     <p class="cta-body reveal">The vision that hasn't found its shape yet. Tell me. We'll start there.</p>
-    <a href="https://tally.so" class="btn-light reveal" target="_blank" rel="noopener" aria-label="Start a conversation — opens intake form in new tab">Start the Conversation</a>
+    <a href="mailto:connect@ignitehealing.ai" class="btn-light reveal" aria-label="Email connect@ignitehealing.ai to start a conversation">Start the Conversation</a>
     <p class="regulation-note reveal">A note before you go: how's your body right now? Breath, shoulders, jaw. Take a moment if you need one. The vision will still be there.</p>
   </div>
 </div>
