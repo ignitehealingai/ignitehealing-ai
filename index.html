@@ -1,260 +1,492 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ignite Healing AI — Research Orientation</title>
-
-  <style>
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.6;
-    color: #222;
-    background-color: #fafafa;
-    margin: 0;
-  }
-.brand {
-  font-style: italic;
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ignite Healing AI™ — Consent-Based Human–AI Collaboration</title>
+<meta name="description" content="Ignite Healing AI™ is a consent-based framework for working with AI as a thinking partner — safely, ethically, and at your pace. Built on the Regulation-Centered System Design™ framework.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
   :root {
-    --accent: #4A5D73;
+    --gold: #C97D00;
+    --gold-light: #F5A623;
+    --amber: #C45F00;
+    --amber-light: #E8832A;
+    --coral: #B83120;
+    --coral-light: #F4614A;
+    --hot: #A8194A;
+    --hot-light: #E8436B;
+    --cream: #FDF8F0;
+    --warm-white: #FFFBF5;
+    --deep: #1A0F08;
+    --mid: #3D2210;
+    --soft: #6B3E22;
+    --accent-light: #FEF0D6;
+    --focus: #005FCC;
   }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  .skip-link {
+    position: absolute; top: -100px; left: 1rem;
+    background: var(--focus); color: #fff;
+    padding: 0.75rem 1.5rem; border-radius: 4px;
+    font-size: 1rem; font-weight: 500; text-decoration: none;
+    z-index: 9999; transition: top 0.2s;
+  }
+  .skip-link:focus { top: 1rem; }
+  body {
+    background: var(--warm-white); color: var(--deep);
+    font-family: 'DM Sans', sans-serif; font-weight: 400;
+    overflow-x: hidden; font-size: 1rem; line-height: 1.7;
+  }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
 
-    main {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem 4rem;
-    }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 4vw; display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.3s ease;
+  }
+  nav.scrolled { background: rgba(26,15,8,0.96); backdrop-filter: blur(12px); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--warm-white); text-decoration: none; font-weight: 700; }
+  .nav-logo span { color: var(--gold-light); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-link { font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(253,248,240,0.8); text-decoration: none; transition: color 0.2s; }
+  .nav-link:hover { color: var(--gold-light); }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 0.25rem;
-      font-weight: 600;
-    }
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
+  .hero-left {
+    background: var(--deep); display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 4rem 5rem 5rem; position: relative; z-index: 2;
+  }
+  .hero-left::after {
+    content: ''; position: absolute; right: -60px; top: 0; bottom: 0; width: 120px;
+    background: var(--deep); clip-path: polygon(0 0, 50% 0, 100% 50%, 50% 100%, 0 100%); z-index: 3;
+  }
+  .flame-mark { width: 48px; height: 48px; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+  .wordmark { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; color: var(--warm-white); line-height: 1.15; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
+  .wordmark em { font-style: italic; color: var(--gold-light); }
+  .trademark { font-size: 0.75rem; color: var(--gold-light); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s; }
+  .hero-tagline { margin-top: 2rem; font-size: 1.1rem; line-height: 1.75; color: rgba(253,248,240,0.85); max-width: 380px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s; }
+  .hero-cta { margin-top: 3rem; opacity: 0; animation: fadeUp 0.8s ease forwards 1s; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { display: inline-block; background: var(--gold-light); color: var(--deep); font-weight: 500; font-size: 0.95rem; padding: 0.9rem 2.2rem; border-radius: 2px; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(197,125,0,0.45); }
+  .btn-secondary { display: inline-block; border: 1px solid rgba(245,166,35,0.5); color: var(--gold-light); font-weight: 400; font-size: 0.95rem; padding: 0.9rem 2.2rem; border-radius: 2px; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+  .btn-secondary:hover { border-color: var(--gold-light); background: rgba(245,166,35,0.08); }
+  .hero-right { background: linear-gradient(160deg, var(--amber-light) 0%, var(--coral-light) 45%, var(--hot-light) 100%); display: flex; align-items: center; justify-content: center; padding: 4rem; position: relative; overflow: hidden; }
+  .hero-right::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 60%, rgba(255,255,255,0.12) 0%, transparent 65%); pointer-events: none; }
+  .hero-quote { font-family: 'Playfair Display', serif; font-size: clamp(1.3rem, 2.2vw, 1.8rem); font-style: italic; color: #fff; line-height: 1.6; text-align: center; max-width: 380px; position: relative; z-index: 2; opacity: 0; animation: fadeUp 0.8s ease forwards 1.2s; }
+  .hero-quote span { display: block; font-family: 'DM Sans', sans-serif; font-style: normal; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-top: 1.5rem; }
 
-    h2 {
-  border-left: 4px solid var(--accent);
-  padding-left: 0.75rem;
-  margin-top: 3rem;
-}
+  .section-wrap { padding: 6rem 10vw; max-width: 100%; }
+  .section-wrap .inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--coral-light); font-weight: 500; margin-bottom: 1.25rem; }
+  h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; line-height: 1.25; color: var(--deep); margin-bottom: 1.75rem; }
+  h2 em { font-style: italic; color: var(--amber-light); }
+  h3 { font-size: 1rem; font-weight: 500; color: var(--deep); margin-bottom: 0.75rem; }
+  .lead { font-size: 1.05rem; line-height: 1.85; color: var(--mid); max-width: 640px; margin-bottom: 1.25rem; }
 
-    p {
-      margin: 0.75rem 0;
-    }
+  .rcsd-section { background: var(--cream); }
+  .rcsd-section .section-label { color: var(--amber-light); }
+  .rcsd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+  .rcsd-card { background: var(--warm-white); padding: 2rem 1.75rem; border-top: 3px solid var(--gold-light); }
+  .rcsd-card.s { border-top-color: var(--coral-light); }
+  .rcsd-card.d { border-top-color: var(--hot-light); }
+  .rcsd-letter { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--accent-light); line-height: 1; margin-bottom: 0.5rem; }
+  .rcsd-card.s .rcsd-letter { color: #fdd6ce; }
+  .rcsd-card.d .rcsd-letter { color: #fad0de; }
+  .rcsd-title { font-weight: 500; font-size: 1rem; color: var(--deep); margin-bottom: 0.5rem; }
+  .rcsd-body { font-size: 0.9rem; line-height: 1.7; color: var(--soft); }
 
-    ul {
-      margin: 0.75rem 0 0.75rem 1.25rem;
-    }
+  .consent-section { background: var(--warm-white); }
+  .consent-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .consent-list { list-style: none; margin-top: 1.5rem; }
+  .consent-list li { padding: 1.1rem 0; border-bottom: 1px solid rgba(61,34,16,0.12); font-size: 1rem; line-height: 1.7; color: var(--mid); display: flex; gap: 1rem; align-items: flex-start; }
+  .consent-list li::before { content: '→'; color: var(--coral-light); flex-shrink: 0; margin-top: 0.1rem; }
 
-    li {
-      margin-bottom: 0.4rem;
-    }
+  .loop-section { background: var(--cream); }
+  .loop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 2.5rem; background: var(--amber-light); }
+  .loop-card { background: var(--warm-white); padding: 2.5rem 2rem; }
+  .loop-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; color: var(--accent-light); line-height: 1; margin-bottom: 0.75rem; }
+  .loop-title { font-weight: 500; font-size: 1rem; color: var(--deep); margin-bottom: 0.5rem; }
+  .loop-body { font-size: 0.9rem; line-height: 1.7; color: var(--soft); }
 
-    .subtitle {
-      font-size: 1rem;
-      color: #555;
-      margin-bottom: 1.5rem;
-    }
+  .who-section { background: var(--deep); }
+  .who-section .section-label { color: var(--gold-light); }
+  .who-section h2 { color: var(--warm-white); }
+  .who-section h2 em { color: var(--gold-light); }
+  .signs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+  .sign-card { border: 1px solid rgba(245,166,35,0.22); padding: 1.75rem; border-radius: 2px; transition: border-color 0.3s, background 0.3s; }
+  .sign-card:hover { border-color: var(--gold-light); background: rgba(245,166,35,0.06); }
+  .sign-card p { font-size: 0.95rem; line-height: 1.75; color: rgba(253,248,240,0.82); }
 
-    .note {
-      font-size: 0.95rem;
-      color: #444;
-      margin-top: 1.25rem;
-    }
+  .about-section { background: var(--cream); }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .tag { font-size: 0.78rem; font-weight: 500; background: var(--warm-white); color: var(--mid); border: 1px solid rgba(61,34,16,0.18); padding: 0.35rem 0.85rem; border-radius: 2px; }
+  .about-links { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+  .about-link { font-size: 0.9rem; color: var(--amber-light); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; font-weight: 500; }
+  .about-link:hover { color: var(--coral-light); }
+  .about-link::before { content: '→'; }
 
-    footer {
-      margin-top: 4rem;
-      font-size: 0.85rem;
-      color: #666;
-    }
-    .contact-block {
-  margin-top: 4rem;
-  padding-top: 2rem;
-  border-top: 1px solid #ddd;
-  font-size: 0.95rem;
-}
+  .work-section { background: var(--warm-white); }
+  .sessions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+  .session-card { border-top: 3px solid var(--gold-light); padding: 2.5rem 2rem; background: var(--cream); }
+  .session-card.hot { border-top-color: var(--hot-light); }
+  .session-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--deep); margin-bottom: 0.75rem; }
+  .session-body { font-size: 0.95rem; line-height: 1.75; color: var(--soft); margin-bottom: 1.25rem; }
+  .session-list { list-style: none; }
+  .session-list li { font-size: 0.9rem; line-height: 1.65; color: var(--mid); padding: 0.3rem 0 0.3rem 1.25rem; position: relative; }
+  .session-list li::before { content: '—'; position: absolute; left: 0; color: var(--coral-light); }
 
-.contact-block h2 {
-  border-left: none;
-  padding-left: 0;
-  margin-top: 0;
-}
+  .not-section { background: var(--cream); }
+  .not-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+  .not-col h3 { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--coral-light); margin-bottom: 1rem; font-weight: 500; }
+  .not-col.is h3 { color: var(--amber-light); }
+  .not-col ul { list-style: none; }
+  .not-col ul li { font-size: 0.95rem; line-height: 1.7; color: var(--mid); padding: 0.4rem 0; border-bottom: 1px solid rgba(61,34,16,0.08); }
 
-.contact-block a {
-  color: var(--accent);
-}
-footer {
-  margin-top: 3rem;
-  padding: 1.5rem 0;
-  font-size: 0.85rem;
-  color: #777;
-  text-align: center;
-}
-    .container {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem;
-}
+  .boundary-section { background: var(--warm-white); }
+  .boundary-box { border-left: 3px solid var(--gold-light); padding: 2rem 2.5rem; background: var(--cream); margin-top: 2rem; max-width: 680px; }
+  .boundary-box p { font-size: 1rem; line-height: 1.85; color: var(--mid); margin-bottom: 0.75rem; }
+  .boundary-box p:last-child { margin-bottom: 0; }
+  .boundary-box em { color: var(--amber-light); font-style: italic; }
 
+  .cta-section { background: linear-gradient(135deg, var(--amber-light) 0%, var(--coral-light) 50%, var(--hot-light) 100%); max-width: 100%; padding: 8rem 10vw; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.14) 0%, transparent 70%); pointer-events: none; }
+  .cta-section .inner { position: relative; z-index: 2; max-width: 620px; margin: 0 auto; }
+  .cta-section h2 { color: #fff; }
+  .cta-section h2 em { color: rgba(255,255,255,0.9); }
+  .cta-body { font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.92); margin-bottom: 2.5rem; }
+  .btn-light { display: inline-block; background: var(--warm-white); color: var(--deep); font-weight: 500; font-size: 0.95rem; padding: 1rem 2.5rem; border-radius: 2px; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .btn-light:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(26,15,8,0.22); }
+  .regulation-note { margin-top: 3rem; font-size: 0.9rem; color: rgba(255,255,255,0.78); font-style: italic; line-height: 1.7; }
 
-  </style>
+  footer { background: var(--deep); padding: 3rem 10vw; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  footer p { font-size: 0.8rem; color: rgba(253,248,240,0.45); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.8rem; color: var(--gold-light); text-decoration: none; opacity: 0.8; transition: opacity 0.2s; }
+  .footer-links a:hover { opacity: 1; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { *, .reveal { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; } }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .hero-left::after { display: none; }
+    .hero-right { padding: 4rem 2rem; min-height: 35vh; }
+    .consent-inner, .about-inner, .signs-grid, .sessions-grid, .not-grid, .rcsd-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .loop-grid { grid-template-columns: 1fr; }
+    .section-wrap { padding: 5rem 6vw; }
+    .nav-links { gap: 1rem; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
 </head>
-
 <body>
-    <div class="container">
-  <main>
-    <h1>Ignite Healing AI</h1>
-    <div class="subtitle">Emerging Research on AI, Regulation, and Human Capacity</div>
 
-    <p>
-      <span class="brand">Ignite Healing AI</span> is a research and innovation space exploring ethical,
-      non-clinical uses of artificial intelligence to support nervous-system
-      regulation, capacity awareness, and self-agency.
-    </p>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <p>
-      This work is exploratory and research-oriented. It does not provide
-      therapy, diagnosis, medical treatment, or crisis support.
-    </p>
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <a href="#" class="nav-logo" aria-label="Ignite Healing AI home">Ignite <span>Healing</span> AI™</a>
+  <div class="nav-links">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#work-with-me" class="nav-link">Work With Me</a>
+    <a href="https://cracksandseeds.substack.com/" class="nav-link" target="_blank" rel="noopener" aria-label="Read Cracks and Seeds, opens in new tab">Writing</a>
+  </div>
+</nav>
 
-    <h2>What This Is</h2>
-
-    <p>
-      <span class="brand">Ignite Healing AI</span> serves as the conceptual and ethical incubator for
-      emerging research at the intersection of AI, mental health, and human
-      systems. The work focuses on understanding how patterns of overwhelm,
-      shutdown, urgency, and capacity mismatch appear in everyday language,
-      planning behavior, and self-reflection—and whether AI can safely support
-      awareness of these patterns without directing behavior or replacing human
-      care.
-    </p>
-
-    <p>
-      The intent is not to automate mental-health support or replicate clinical
-      practice. Instead, this research asks whether AI can function as a
-      reflective mirror that helps individuals notice early signs of
-      dysregulation and engage in self-directed, consent-based regulation
-      practices.
-    </p>
-
-    <h2>Why This Research Exists</h2>
-
-    <p>
-      Through more than two decades of leading complex systems, digital
-      transformation, and organizational change, I observed a consistent
-      pattern: many system failures are driven not by technical flaws, but by
-      human overload, urgency cycles, and mismatches between expectations and
-      capacity.
-    </p>
-
-    <p>
-      People bring their nervous systems—and their lived histories—into every
-      system they use. When capacity is exceeded, cognition narrows,
-      communication breaks down, and even well-designed systems become
-      difficult to use.
-    </p>
-
-    <p>
-      <span class="brand">Ignite Healing AI</span> exists to explore whether AI can be designed to
-      recognize these capacity-related patterns and offer gentle, non-coercive
-      support that respects autonomy and limits—particularly for individuals
-      who are underserved by traditional mental-health pathways.
-    </p>
-
-    <h2>Research Approach</h2>
-
-    <p>
-      This work uses practice-based, exploratory methods rather than formal
-      clinical trials.
-    </p>
-
-    <ul>
-      <li>reflective journaling and language observation</li>
-      <li>qualitative pattern recognition in everyday planning and reflection</li>
-      <li>applied systems analysis grounded in real-world workflows</li>
-      <li>consent-based AI interaction design</li>
-      <li>safety and harm-mitigation analysis</li>
-      <li>explicit non-clinical scope and boundaries</li>
-    </ul>
-
-    <p>
-      The emphasis is on learning, ethics, and design principles rather than
-      outcomes or prescriptions.
-    </p>
-
-    <h2>Applied Frameworks Informing This Work</h2>
-
-    <p>
-      <strong>Regulation-Centered System Design™ (RCSD™)</strong><br />
-      A systems-thinking framework that treats nervous-system regulation as
-      foundational to behavior, adoption, and decision-making. RCSD™ reframes
-      resistance, burnout, and “failure” as capacity mismatches rather than
-      motivation problems.
-    </p>
-
-    <p>
-      <strong>Systems in Serenity™</strong><br />
-      A reflective model for understanding how safety, pacing, and clarity
-      influence sustainable performance over time. It emphasizes reducing
-      urgency-driven cycles in favor of steady, humane throughput.
-    </p>
-
-    <p>
-      <strong>Scrum for One™</strong><br />
-      An adaptation of Agile and Scrum principles designed for individuals whose
-      capacity fluctuates due to stress, trauma, neurodivergence, or caregiving
-      demands. Scrum for One™ emphasizes micro-sprints, explicit capacity
-      check-ins, consent-based prioritization, and retrospectives focused on
-      regulation rather than productivity. The framework generates observable
-      qualitative signals relevant to AI-supported pattern recognition.
-    </p>
-
-    <h2>Ethics and Boundaries</h2>
-
-    <p>
-      <span class="brand">Ignite Healing AI</span> does not diagnose, treat, or intervene in mental-health
-      crises. It does not provide therapy, coaching, or clinical guidance. It
-      does not replace professional care or human relationships.
-    </p>
-
-    <p>
-      All research emphasizes autonomy, consent, transparency, and harm
-      reduction. Any exploration of AI interaction prioritizes user agency,
-      reversibility, and clear limitations.
-    </p>
-
-    <h2>About the Researcher</h2>
-
-    <p>
-      SK Lowther (they/them) is a Senior Project Manager, Business Systems
-      Analyst, and Equity Facilitator with more than 20 years of experience
-      leading complex systems and digital transformation across healthcare,
-      government, nonprofit, and education sectors.
-    </p>
-
-    <p>
-      Their professional background includes Agile and Scrum delivery, business
-      and systems analysis, change leadership, and responsible technology
-      adoption, alongside formal training in psychology, social work,
-      embodiment, and nervous-system regulation. <span class="brand">Ignite Healing AI</span> represents
-      their current focus as an independent, emerging researcher exploring how
-      AI might support human capacity and regulation in ethical, non-clinical
-      ways.
-    </p>
-
-  </main>
-  <div class="contact-block">
-  <h2>Connect</h2>
-  <p>
-    If you’re a researcher, practitioner, or potential collaborator interested in this work,
-    you’re welcome to reach out at
-    <a href="mailto:connect@ignitehealing.ai">connect@ignitehealing.ai</a>.
-  </p>
-</div>
-<footer>
-  © 2025 Ignite Healing AI
-</footer>
+<header role="banner">
+  <div class="hero">
+    <div class="hero-left">
+      <svg class="flame-mark" viewBox="0 0 72 88" fill="none" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="f1" x1="36" y1="80" x2="36" y2="8" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#E8436B"/>
+            <stop offset="50%" stop-color="#F4614A"/>
+            <stop offset="100%" stop-color="#F5A623"/>
+          </linearGradient>
+          <linearGradient id="f2" x1="36" y1="80" x2="36" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FDF8F0" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#FDF8F0" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M36 8 C42 24 52 36 52 52 C52 66 45 76 36 80 C27 76 20 66 20 52 C20 36 30 24 36 8Z" fill="url(#f1)"/>
+        <path d="M36 8 C30 24 20 36 20 52 C20 44 24 34 36 26 C48 34 52 44 52 52 C52 36 42 24 36 8Z" fill="#F5A623" opacity="0.3"/>
+        <path d="M36 38 C40 46 42 56 42 64 C42 72 39 78 36 80 C33 78 30 72 30 64 C30 56 32 46 36 38Z" fill="url(#f2)"/>
+        <ellipse cx="36" cy="52" rx="4" ry="6" fill="#FDF8F0" opacity="0.5"/>
+      </svg>
+      <div class="wordmark" role="heading" aria-level="1">Ignite<br><em>Healing</em> AI™</div>
+      <div class="trademark">Consent-based human–AI collaboration</div>
+      <p class="hero-tagline">For people building something that matters — who don't want to lose themselves in the process.</p>
+      <div class="hero-cta">
+        <a href="#work-with-me" class="btn-primary">Work With Me</a>
+        <a href="https://cracksandseeds.substack.com/" class="btn-secondary" target="_blank" rel="noopener" aria-label="Read Cracks and Seeds on Substack, opens in new tab">Read the Writing</a>
+      </div>
     </div>
+    <div class="hero-right" aria-hidden="true">
+      <p class="hero-quote">
+        "Consent is the architecture — not something added on top, but the structure everything is built on."
+        <span>— Ignite Healing AI™ Framework</span>
+      </p>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+<!-- WHAT IS -->
+<div class="section-wrap" style="background:var(--warm-white)">
+  <div class="inner">
+    <p class="section-label reveal">What Is Ignite Healing AI™?</p>
+    <h2 class="reveal">A new way to work with AI —<br><em>on your terms.</em></h2>
+    <p class="lead reveal">Ignite Healing AI™ is a framework for using AI as a thinking partner. It is not therapy. It is not a shortcut. It is a structured, human-led process built on consent.</p>
+    <p class="lead reveal">It helps you stay grounded while you work. Notice what's happening in your body and mind. And turn your insights into real, usable action.</p>
+    <p class="lead reveal">It started with one question: what if AI actually supported human wellbeing, instead of just speeding things up?</p>
+  </div>
+</div>
+
+<!-- RCSD -->
+<div class="section-wrap rcsd-section" aria-labelledby="rcsd-heading">
+  <div class="inner">
+    <p class="section-label reveal">The Framework</p>
+    <h2 id="rcsd-heading" class="reveal">Regulation-Centered System Design™<br><em>(RCSD)</em></h2>
+    <p class="lead reveal">Ignite Healing AI is built on RCSD™ — a framework that puts your nervous system at the center of how you work with technology. Most tools are built for speed and output. RCSD™ is built for people.</p>
+    <div class="rcsd-grid" role="list">
+      <div class="rcsd-card reveal" role="listitem">
+        <div class="rcsd-letter" aria-hidden="true">R</div>
+        <div class="rcsd-title">Regulation</div>
+        <p class="rcsd-body">Your ability to stay calm and grounded comes first. Every interaction is designed to support your nervous system, not push past it.</p>
+      </div>
+      <div class="rcsd-card s reveal" role="listitem">
+        <div class="rcsd-letter" aria-hidden="true">C</div>
+        <div class="rcsd-title">Consent</div>
+        <p class="rcsd-body">You decide what happens, when it happens, and how fast. Nothing moves without your permission. You are always in charge.</p>
+      </div>
+      <div class="rcsd-card d reveal" role="listitem">
+        <div class="rcsd-letter" aria-hidden="true">SD</div>
+        <div class="rcsd-title">System Design</div>
+        <p class="rcsd-body">Good systems are built around real human needs. RCSD applies this thinking to AI — creating tools that work with you, not on you.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONSENT -->
+<div class="section-wrap consent-section" aria-labelledby="consent-heading">
+  <div class="inner">
+    <div class="consent-inner">
+      <div>
+        <p class="section-label reveal">Consent Architecture</p>
+        <h2 id="consent-heading" class="reveal">You set<br><em>the pace.</em></h2>
+        <p class="lead reveal">Consent is not a checkbox. It is the structure everything else is built on.</p>
+        <p class="lead reveal">That includes how often the system checks in with you. You set that interval — because you know your nervous system better than any tool does.</p>
+      </div>
+      <div>
+        <ul class="consent-list reveal" aria-label="How consent works in this framework">
+          <li>You set the pace — always</li>
+          <li>You set the limits of every conversation</li>
+          <li>You decide what the AI is allowed to do in any moment</li>
+          <li>You control how often the system checks in with you</li>
+          <li>You decide what is true — the AI never does</li>
+          <li>If a conversation doesn't increase your clarity or calm — it stops</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CORE LOOP -->
+<div class="section-wrap loop-section" aria-labelledby="loop-heading">
+  <div class="inner">
+    <p class="section-label reveal">How It Works</p>
+    <h2 id="loop-heading" class="reveal">Track. Bring. <em>Understand.</em></h2>
+    <p class="lead reveal">The patterns you notice over time become information. That information becomes insight. Insight becomes choice. And choice — eventually — becomes something you create.</p>
+    <div class="loop-grid" role="list">
+      <div class="loop-card reveal" role="listitem">
+        <div class="loop-num" aria-hidden="true">01</div>
+        <div class="loop-title">Notice what's happening</div>
+        <p class="loop-body">Body signals, feelings, thought patterns. What's alive in you right now — before you try to do anything with it.</p>
+      </div>
+      <div class="loop-card reveal" role="listitem">
+        <div class="loop-num" aria-hidden="true">02</div>
+        <div class="loop-title">Bring it into the conversation</div>
+        <p class="loop-body">AI holds the complexity without rushing you. It slows the moment down so you can meet it differently.</p>
+      </div>
+      <div class="loop-card reveal" role="listitem">
+        <div class="loop-num" aria-hidden="true">03</div>
+        <div class="loop-title">Make better sense of yourself</div>
+        <p class="loop-body">Not once. Over time. Insight that doesn't stop at reflection — it becomes something you can actually use.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHO -->
+<div class="section-wrap who-section" aria-labelledby="who-heading">
+  <div class="inner">
+    <p class="section-label reveal">Who This Is For</p>
+    <h2 id="who-heading" class="reveal">You have a vision.<br><em>Something real and yours.</em></h2>
+    <p class="lead reveal" style="color:rgba(253,248,240,0.82)">You're worried that AI might flatten it — make it feel generic, or move faster than you can keep up with. That worry makes sense. And there is another way.</p>
+    <div class="signs-grid" role="list">
+      <div class="sign-card reveal" role="listitem"><p>You've had the same idea for months — maybe years. Every time you try to move toward it, something stops you. Doubt, capacity, not knowing where to start.</p></div>
+      <div class="sign-card reveal" role="listitem"><p>You're curious about AI, but cautious. You want it to help you — without losing yourself in it.</p></div>
+      <div class="sign-card reveal" role="listitem"><p>You do work that matters. Healing work. Community work. Creative work. Work at the place where trauma meets transformation, and technology meets care.</p></div>
+      <div class="sign-card reveal" role="listitem"><p>You're ready to move. And you want to do it in a way that keeps your values intact. That last part changes everything.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section-wrap about-section" id="about" aria-labelledby="about-heading">
+  <div class="inner">
+    <div class="about-inner">
+      <div>
+        <p class="section-label reveal">About</p>
+        <h2 id="about-heading" class="reveal">Systems thinker.<br><em>Trauma-informed designer.</em></h2>
+        <p class="lead reveal">I have spent over two decades working at the intersection of technology, human systems, and care. My work brings together systems design, clinical social work training, gender studies, embodiment practice, and responsible AI ethics.</p>
+        <p class="lead reveal">Ignite Healing AI grew out of a simple, urgent question: how do we build AI tools that are actually safe for people — especially people who have been harmed by systems that weren't designed with them in mind?</p>
+        <p class="lead reveal">The Regulation-Centered System Design™ framework is my answer to that question. It is still evolving. So is this work.</p>
+        <div class="about-links">
+          <a href="https://cracksandseeds.substack.com/" class="about-link" target="_blank" rel="noopener" aria-label="Read Cracks and Seeds on Substack, opens in new tab">Read Cracks &amp; Seeds™ on Substack</a>
+          <a href="#work-with-me" class="about-link">Work with me</a>
+        </div>
+      </div>
+      <div>
+        <div class="about-tags reveal" aria-label="Areas of expertise">
+          <span class="tag">Systems design</span>
+          <span class="tag">Trauma-informed practice</span>
+          <span class="tag">Responsible AI</span>
+          <span class="tag">Consent architecture</span>
+          <span class="tag">Nervous system literacy</span>
+          <span class="tag">Clinical social work</span>
+          <span class="tag">Gender studies</span>
+          <span class="tag">Embodiment</span>
+          <span class="tag">Digital transformation</span>
+          <span class="tag">Ethics</span>
+          <span class="tag">Creative practice</span>
+          <span class="tag">Human–AI collaboration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORK WITH ME -->
+<div class="section-wrap work-section" id="work-with-me" aria-labelledby="work-heading">
+  <div class="inner">
+    <p class="section-label reveal">Work With Me</p>
+    <h2 id="work-heading" class="reveal">Sessions built around<br><em>your actual nervous system.</em></h2>
+    <p class="lead reveal">This is not about being more productive. It is about learning how to stay connected to yourself while using AI — and turn what you notice into something real.</p>
+    <div class="sessions-grid" role="list">
+      <div class="session-card reveal" role="listitem">
+        <div class="session-title">1:1 Sessions</div>
+        <p class="session-body">A space to work through moments where you feel stuck, overwhelmed, or unsure — using AI as a structured thinking partner.</p>
+        <ul class="session-list" aria-label="What 1 to 1 sessions cover">
+          <li>Decisions that don't feel clear yet</li>
+          <li>Ideas that haven't taken shape</li>
+          <li>Patterns that keep coming back</li>
+          <li>Moments of pressure or overwhelm</li>
+        </ul>
+      </div>
+      <div class="session-card hot reveal" role="listitem">
+        <div class="session-title">AI + Creation Sessions</div>
+        <p class="session-body">For people who want to go further — turning ideas into real outputs, without losing what makes the work yours.</p>
+        <ul class="session-list" aria-label="What AI and creation sessions cover">
+          <li>Turn ideas into usable outputs</li>
+          <li>Build simple tools, workflows, or apps</li>
+          <li>Create a repeatable thinking process</li>
+          <li>Grow your creative work without burning out</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOT / IS -->
+<div class="section-wrap not-section" aria-labelledby="clarity-heading">
+  <div class="inner">
+    <p class="section-label reveal" style="text-align:center">Clarity</p>
+    <h2 id="clarity-heading" class="reveal" style="text-align:center">What this is.<br><em>What this isn't.</em></h2>
+    <div class="not-grid">
+      <div class="not-col reveal">
+        <h3>This is not</h3>
+        <ul>
+          <li>Therapy or diagnosis</li>
+          <li>AI replacing human connection</li>
+          <li>Prompt engineering or automation</li>
+          <li>AI leading your emotional process</li>
+          <li>A shortcut</li>
+        </ul>
+      </div>
+      <div class="not-col is reveal">
+        <h3>This is</h3>
+        <ul>
+          <li>A human-led, consent-based process</li>
+          <li>A structured space for reflection</li>
+          <li>Regulation-centered AI collaboration</li>
+          <li>Your values as the guide</li>
+          <li>Your vision, made real, at your pace</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOUNDARY -->
+<div class="section-wrap boundary-section" aria-labelledby="boundary-heading">
+  <div class="inner">
+    <p class="section-label reveal">The Test</p>
+    <h2 id="boundary-heading" class="reveal">If it doesn't help you think more clearly,<br><em>it stops.</em></h2>
+    <div class="boundary-box reveal">
+      <p>AI does not lead your emotional process. AI does not interpret your experience. AI does not decide what is true for you.</p>
+      <p>Consent architecture means these limits are built into how the system works — not just written in a disclaimer.</p>
+      <p><em>If a conversation does not increase your clarity, presence, or calm — that is the test. And it stops.</em></p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section" aria-labelledby="cta-heading">
+  <div class="inner">
+    <h2 id="cta-heading" class="reveal">What is the thing<br><em>you've been holding?</em></h2>
+    <p class="cta-body reveal">The vision that hasn't found its shape yet. Tell me. We'll start there.</p>
+    <a href="https://tally.so" class="btn-light reveal" target="_blank" rel="noopener" aria-label="Start a conversation — opens intake form in new tab">Start the Conversation</a>
+    <p class="regulation-note reveal">A note before you go: how's your body right now? Breath, shoulders, jaw. Take a moment if you need one. The vision will still be there.</p>
+  </div>
+</div>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <p>Ignite Healing AI™ &nbsp;&copy; 2026</p>
+    <div class="footer-links">
+      <a href="https://cracksandseeds.substack.com/" target="_blank" rel="noopener" aria-label="Read Cracks and Seeds on Substack, opens in new tab">Cracks &amp; Seeds™</a>
+      <a href="#work-with-me">Work With Me</a>
+      <a href="#about">About</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 55);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
